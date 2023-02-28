@@ -24,7 +24,7 @@ export default class Server {
             new MenuItemsController(app),
           ]
         },
-        3000,
+        3001,
       );
     }
 
