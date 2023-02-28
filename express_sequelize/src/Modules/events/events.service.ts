@@ -87,7 +87,10 @@ export class EventsService {
      */
 
   async getEventsWithWorkshops() {
-    const result = await Event.findAll({ include: [ { model: Workshop, as: 'workshops' } ],  order: [ [ { model: Workshop, as: 'workshops' }, 'id', 'ASC' ] ] });
+    const result = await Event.findAll({ 
+                      include: [ { model: Workshop, as: 'workshops' } ],  
+                      order: [ [ { model: Workshop, as: 'workshops' }, 'id', 'ASC' ] ] 
+                    });
     return result;
   }
 
@@ -160,15 +163,15 @@ export class EventsService {
   async getFutureEventWithWorkshops() {
     const today = new Date();
     const result =  await Event.findAll({ 
-                  include: [ { 
-                    model: Workshop,
-                    where: {
-                      start: {
-                        [Op.gt]: today
-                      }
-                    }
-                  }] 
-              }); 
+                        include: [ { 
+                          model: Workshop,
+                          where: {
+                            start: {
+                              [Op.gt]: today
+                            }
+                          }
+                        }] 
+                    }); 
     return result;
   }
 }
