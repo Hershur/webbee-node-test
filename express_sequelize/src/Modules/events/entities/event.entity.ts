@@ -24,6 +24,6 @@ export default class Event extends Model {
   @Column({ type: 'datetime' } as ModelAttributeColumnOptions)
   declare createdAt: Date;
 
-  @HasMany(() => Workshop, 'id')
+  @HasMany(() => Workshop, 'eventid')
   workshops: Workshop[];
 }

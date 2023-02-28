@@ -1,3 +1,4 @@
+import { col, fn, Op, where } from 'sequelize';
 import Event from './entities/event.entity';
 import Workshop from './entities/workshop.entity';
 
@@ -86,7 +87,7 @@ export class EventsService {
      */
 
   async getEventsWithWorkshops() {
-    const result = await Event.findAll({ include: [ { model: Workshop }] });
+    const result = await Event.findAll({ include: [ { model: Workshop, as: 'workshops' } ],  order: [ [ { model: Workshop, as: 'workshops' }, 'id', 'ASC' ] ] });
     return result;
   }
 
@@ -157,6 +158,17 @@ export class EventsService {
     ```
      */
   async getFutureEventWithWorkshops() {
-    throw new Error('TODO task 2');
+    const today = new Date();
+    const result =  await Event.findAll({ 
+                  include: [ { 
+                    model: Workshop,
+                    where: {
+                      start: {
+                        [Op.gt]: today
+                      }
+                    }
+                  }] 
+              }); 
+    return result;
   }
 }
